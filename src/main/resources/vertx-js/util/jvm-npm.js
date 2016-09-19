@@ -250,7 +250,8 @@ if (typeof Java.synchronized == 'undefined') {
 
   function resolveAsNodeModule(id, root) {
     var base = [root, 'node_modules'].join('/');
-    return resolveAsFile(id, base) ||
+    return resolveAsFile(id, root, '.js') ||
+      resolveAsFile(id, root, '.json') ||
       resolveAsDirectory(id, base) ||
       (root ? resolveAsNodeModule(id, new File(root).getParent()) : false) ||
       resolveAsClasspathNodeModule(id);
